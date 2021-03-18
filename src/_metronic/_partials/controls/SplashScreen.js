@@ -7,8 +7,8 @@ export function SplashScreen() {
     <>
       <div className="splash-screen">
         <img
-          src={toAbsoluteUrl("/media/logos/logo-mini-md.png")}
-          alt="Metronic logo"
+          src={toAbsoluteUrl("/media/logos/logo.jpeg")}
+          alt="Al hawat logo"
         />
         <CircularProgress className="splash-screen-spinner" />
       </div>
