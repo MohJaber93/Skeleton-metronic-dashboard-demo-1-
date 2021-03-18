@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {LayoutSplashScreen} from "../../../../_metronic/layout";
-import * as auth from "../_redux/authRedux";
 
 class Logout extends Component {
   componentDidMount() {
@@ -15,7 +13,4 @@ class Logout extends Component {
   }
 }
 
-export default connect(
-  ({ auth }) => ({ hasAuthToken: Boolean(auth.authToken) }),
-  auth.actions
-)(Logout);
+export default Logout;
