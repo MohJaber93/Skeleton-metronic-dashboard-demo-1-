@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
-import * as auth from "../_redux/authRedux";
-import { login } from "../_redux/authCrud";
+const login = () => { }
 
 /*
   INTL (i18n) docs:
@@ -18,13 +16,26 @@ import { login } from "../_redux/authCrud";
 */
 
 const initialValues = {
-  email: "admin@demo.com",
-  password: "demo",
+  email: "",
+  password: "",
 };
 
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
+
+  const login = (email, pass, setSubmitting, setStatus) => {
+    console.log(email, pass)
+    // stop loding
+    disableLoading();
+    // if login failed then do the next
+    // setSubmitting(false) to enable the login button
+    // setStatus(
+    //   intl.formatMessage({
+    //     id: "AUTH.VALIDATION.INVALID_LOGIN",
+    //   })
+    // );
+  }
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
@@ -71,20 +82,20 @@ function Login(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       setTimeout(() => {
-        login(values.email, values.password)
-          .then(({ data: { accessToken } }) => {
-            disableLoading();
-            props.login(accessToken);
-          })
-          .catch(() => {
-            disableLoading();
-            setSubmitting(false);
-            setStatus(
-              intl.formatMessage({
-                id: "AUTH.VALIDATION.INVALID_LOGIN",
-              })
-            );
-          });
+        login(values.email, values.password, setSubmitting, setStatus)
+        // .then(({ data: { accessToken } }) => {
+        //   disableLoading();
+        //   props.login(accessToken);
+        // })
+        // .catch(() => {
+        //   disableLoading();
+        //   setSubmitting(false);
+        //   setStatus(
+        //     intl.formatMessage({
+        //       id: "AUTH.VALIDATION.INVALID_LOGIN",
+        //     })
+        //   );
+        // });
       }, 1000);
     },
   });
@@ -114,8 +125,7 @@ function Login(props) {
         ) : (
           <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
             <div className="alert-text ">
-              Use account <strong>admin@demo.com</strong> and password{" "}
-              <strong>demo</strong> to continue.
+              Please enter your <strong>E-mail</strong> and password to continue.
             </div>
           </div>
         )}
@@ -152,14 +162,7 @@ function Login(props) {
             </div>
           ) : null}
         </div>
-        <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
-          <Link
-            to="/auth/forgot-password"
-            className="text-dark-50 text-hover-primary my-3 mr-2"
-            id="kt_login_forgot"
-          >
-            <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
-          </Link>
+        <div className="form-group d-flex flex-wrap justify-content-end align-items-center">
           <button
             id="kt_login_signin_submit"
             type="submit"
@@ -176,4 +179,4 @@ function Login(props) {
   );
 }
 
-export default injectIntl(connect(null, auth.actions)(Login));
+export default injectIntl(Login);
