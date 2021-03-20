@@ -65,8 +65,6 @@ export function LayoutInit() {
       // Init Quick Offcanvas Panel
       KTLayoutQuickPanel.init('kt_quick_panel');
 
-      // Init Quick User Panel
-      KTLayoutQuickUser.init('kt_quick_user');
     });
   }, []);
   return <></>;
