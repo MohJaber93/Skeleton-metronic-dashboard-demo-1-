@@ -28,12 +28,10 @@ export function AsideMenuList({ layoutProps }) {
             <span className="svg-icon menu-icon">
               <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")} />
             </span>
-            <span className="menu-text">Dashboard</span>
+            <span className="menu-text">لوحة التحكم</span>
           </NavLink>
         </li>
         {/*end::1 Level*/}
-
-       
 
         {/* Applications */}
         {/* begin::section */}
@@ -45,61 +43,6 @@ export function AsideMenuList({ layoutProps }) {
 
         {/* eCommerce */}
         {/*begin::1 Level*/}
-        <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/e-commerce",
-            true
-          )}`}
-          aria-haspopup="true"
-          data-menu-toggle="hover"
-        >
-          <NavLink className="menu-link menu-toggle" to="/e-commerce">
-            <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Bag2.svg")} />
-            </span>
-            <span className="menu-text">eCommerce</span>
-          </NavLink>
-          <div className="menu-submenu">
-            <i className="menu-arrow" />
-            <ul className="menu-subnav">
-              <li className="menu-item menu-item-parent" aria-haspopup="true">
-                <span className="menu-link">
-                  <span className="menu-text">eCommerce</span>
-                </span>
-              </li>
-              {/*begin::2 Level*/}
-              <li
-                className={`menu-item ${getMenuItemActive(
-                  "/e-commerce/customers"
-                )}`}
-                aria-haspopup="true"
-              >
-                <NavLink className="menu-link" to="/e-commerce/customers">
-                  <i className="menu-bullet menu-bullet-dot">
-                    <span />
-                  </i>
-                  <span className="menu-text">Customers</span>
-                </NavLink>
-              </li>
-              {/*end::2 Level*/}
-              {/*begin::2 Level*/}
-              <li
-                className={`menu-item ${getMenuItemActive(
-                  "/e-commerce/products"
-                )}`}
-                aria-haspopup="true"
-              >
-                <NavLink className="menu-link" to="/e-commerce/products">
-                  <i className="menu-bullet menu-bullet-dot">
-                    <span />
-                  </i>
-                  <span className="menu-text">Products</span>
-                </NavLink>
-              </li>
-              {/*end::2 Level*/}
-            </ul>
-          </div>
-        </li>
         {/*end::1 Level*/}
 
         {/*begin::1 Level*/}
@@ -115,22 +58,13 @@ export function AsideMenuList({ layoutProps }) {
                 )}
               />
             </span>
-            <span className="menu-text">User Profile</span>
+            <span className="menu-text">المستخدمين</span>
           </NavLink>
         </li>
         {/*end::1 Level*/}
-
-        {/* Custom */}
-        {/* begin::section */}
-        <li className="menu-section ">
-          <h4 className="menu-text">Custom</h4>
-          <i className="menu-icon flaticon-more-v2"></i>
-        </li>
-        {/* end:: section */}
-
         {/* Error Pages */}
         {/*begin::1 Level*/}
-        <li
+        {/* <li
           className={`menu-item menu-item-submenu ${getMenuItemActive(
             "/error",
             true
@@ -156,7 +90,6 @@ export function AsideMenuList({ layoutProps }) {
                 </span>
               </li>
 
-              {/*begin::2 Level*/}
               <li
                 className={`menu-item ${getMenuItemActive("/error/error-v1")}`}
                 aria-haspopup="true"
@@ -168,9 +101,7 @@ export function AsideMenuList({ layoutProps }) {
                   <span className="menu-text">Error Page - 1</span>
                 </NavLink>
               </li>
-              {/*end::2 Level*/}
 
-              {/*begin::2 Level*/}
               <li
                 className={`menu-item ${getMenuItemActive("/error/error-v2")}`}
                 aria-haspopup="true"
@@ -182,9 +113,7 @@ export function AsideMenuList({ layoutProps }) {
                   <span className="menu-text">Error Page -2</span>
                 </NavLink>
               </li>
-              {/*end::2 Level*/}
 
-              {/*begin::2 Level*/}
               <li
                 className={`menu-item ${getMenuItemActive("/error/error-v3")}`}
                 aria-haspopup="true"
@@ -196,9 +125,7 @@ export function AsideMenuList({ layoutProps }) {
                   <span className="menu-text">Error Page - 3</span>
                 </NavLink>
               </li>
-              {/*end::2 Level*/}
 
-              {/*begin::2 Level*/}
               <li
                 className={`menu-item ${getMenuItemActive("/error/error-v4")}`}
                 aria-haspopup="true"
@@ -210,9 +137,7 @@ export function AsideMenuList({ layoutProps }) {
                   <span className="menu-text">Error Page - 4</span>
                 </NavLink>
               </li>
-              {/*end::2 Level*/}
 
-              {/*begin::2 Level*/}
               <li
                 className={`menu-item ${getMenuItemActive("/error/error-v5")}`}
                 aria-haspopup="true"
@@ -224,9 +149,7 @@ export function AsideMenuList({ layoutProps }) {
                   <span className="menu-text">Error Page - 5</span>
                 </NavLink>
               </li>
-              {/*end::2 Level*/}
 
-              {/*begin::2 Level*/}
               <li
                 className={`menu-item ${getMenuItemActive("/error/error-v6")}`}
                 aria-haspopup="true"
@@ -238,10 +161,9 @@ export function AsideMenuList({ layoutProps }) {
                   <span className="menu-text">Error Page - 6</span>
                 </NavLink>
               </li>
-              {/*end::2 Level*/}
             </ul>
           </div>
-        </li>
+        </li> */}
         {/*end::1 Level*/}
       </ul>
 
