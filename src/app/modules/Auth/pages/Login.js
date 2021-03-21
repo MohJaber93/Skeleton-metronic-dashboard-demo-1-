@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormattedMessage, injectIntl } from "react-intl";
-const login = () => { }
+import { login } from "api/Auth";
+import { getHomeSummary } from "api/Users";
+import { API_COMMON_STATUS } from "helpers/api-helper";
 
 /*
   INTL (i18n) docs:
@@ -17,25 +18,18 @@ const login = () => { }
 
 const initialValues = {
   email: "",
-  password: "",
+  password: ""
 };
 
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
 
-  const login = (email, pass, setSubmitting, setStatus) => {
-    console.log(email, pass)
-    // stop loding
-    disableLoading();
-    // if login failed then do the next
-    // setSubmitting(false) to enable the login button
-    // setStatus(
-    //   intl.formatMessage({
-    //     id: "AUTH.VALIDATION.INVALID_LOGIN",
-    //   })
-    // );
-  }
+  useEffect(() => {
+    getHomeSummary().then(res => {
+      console.log(res, "getHomeSummary");
+    });
+  }, []);
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
@@ -43,7 +37,7 @@ function Login(props) {
       .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
       ),
     password: Yup.string()
@@ -51,9 +45,9 @@ function Login(props) {
       .max(50, "Maximum 50 symbols")
       .required(
         intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
+          id: "AUTH.VALIDATION.REQUIRED_FIELD"
         })
-      ),
+      )
   });
 
   const enableLoading = () => {
@@ -64,7 +58,7 @@ function Login(props) {
     setLoading(false);
   };
 
-  const getInputClasses = (fieldname) => {
+  const getInputClasses = fieldname => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
     }
@@ -81,23 +75,38 @@ function Login(props) {
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
-      setTimeout(() => {
-        login(values.email, values.password, setSubmitting, setStatus)
-        // .then(({ data: { accessToken } }) => {
-        //   disableLoading();
-        //   props.login(accessToken);
-        // })
-        // .catch(() => {
-        //   disableLoading();
-        //   setSubmitting(false);
-        //   setStatus(
-        //     intl.formatMessage({
-        //       id: "AUTH.VALIDATION.INVALID_LOGIN",
-        //     })
-        //   );
-        // });
-      }, 1000);
-    },
+      const loginData = {
+        email: values.email,
+        password: values.password
+      };
+
+      login(loginData)
+        .then(response => {
+          disableLoading();
+          console.log(response, "login res");
+          if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
+            console.log(response.token, "login res");
+          } else if (response.responseStatus === API_COMMON_STATUS.ERROR) {
+            console.log(response, "login res error");
+            setSubmitting(false);
+            setStatus(
+              intl.formatMessage({
+                id: "AUTH.VALIDATION.INVALID_LOGIN"
+              })
+            );
+          }
+        })
+        .catch(err => {
+          console.log(err, "login error");
+          disableLoading();
+          setSubmitting(false);
+          setStatus(
+            intl.formatMessage({
+              id: "AUTH.VALIDATION.INVALID_LOGIN"
+            })
+          );
+        });
+    }
   });
 
   return (
@@ -107,9 +116,7 @@ function Login(props) {
         <h3 className="font-size-h1">
           <FormattedMessage id="AUTH.LOGIN.TITLE" />
         </h3>
-        <p className="text-muted font-weight-bold">
-          Enter your username and password
-        </p>
+        <p className="text-muted font-weight-bold">أدخل الايميل وكلمة المرور</p>
       </div>
       {/* end::Head */}
 
@@ -124,15 +131,15 @@ function Login(props) {
           </div>
         ) : (
           <div className="mb-10 alert alert-custom alert-light-info alert-dismissible">
-            <div className="alert-text ">
-              Please enter your <strong>E-mail</strong> and password to continue.
+            <div className="alert-text">
+              الرجاء ادخال <strong>الايميل</strong> وكلمة المرور للمتابعة
             </div>
           </div>
         )}
 
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Email"
+            placeholder="الايميل"
             type="email"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "email"
@@ -148,7 +155,7 @@ function Login(props) {
         </div>
         <div className="form-group fv-plugins-icon-container">
           <input
-            placeholder="Password"
+            placeholder="كلمة المرور"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
               "password"
@@ -169,7 +176,9 @@ function Login(props) {
             disabled={formik.isSubmitting}
             className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
           >
-            <span>Sign In</span>
+            <span>
+              <FormattedMessage id="AUTH.LOGIN.BUTTON" />
+            </span>
             {loading && <span className="ml-3 spinner spinner-white"></span>}
           </button>
         </div>
