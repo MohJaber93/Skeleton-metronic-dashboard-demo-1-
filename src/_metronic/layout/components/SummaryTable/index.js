@@ -53,7 +53,7 @@ const SummaryTable = () => {
               >
                 {row.title}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.value}</StyledTableCell>
+              <StyledTableCell align="center">{row.value}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
