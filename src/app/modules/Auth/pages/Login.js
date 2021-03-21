@@ -3,8 +3,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { login } from "api/Auth";
-import { getHomeSummary } from "api/Users";
 import { API_COMMON_STATUS } from "helpers/api-helper";
+import { GlobalContext } from "contexts/GlobalState";
+import { GLOBALSTATE_ACTIONS } from "../../../../constants";
 
 /*
   INTL (i18n) docs:
@@ -24,12 +25,8 @@ const initialValues = {
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
+  const [, dispatch] = React.useContext(GlobalContext);
 
-  useEffect(() => {
-    getHomeSummary().then(res => {
-      console.log(res, "getHomeSummary");
-    });
-  }, []);
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
@@ -83,11 +80,9 @@ function Login(props) {
       login(loginData)
         .then(response => {
           disableLoading();
-          console.log(response, "login res");
           if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
-            console.log(response.token, "login res");
+            dispatch({ type: GLOBALSTATE_ACTIONS.SET_IS_AUTH, data: response });
           } else if (response.responseStatus === API_COMMON_STATUS.ERROR) {
-            console.log(response, "login res error");
             setSubmitting(false);
             setStatus(
               intl.formatMessage({
@@ -97,7 +92,6 @@ function Login(props) {
           }
         })
         .catch(err => {
-          console.log(err, "login error");
           disableLoading();
           setSubmitting(false);
           setStatus(
