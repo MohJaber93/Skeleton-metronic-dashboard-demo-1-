@@ -9,17 +9,13 @@ import React from "react";
 import { Redirect, Switch, Route } from "react-router-dom";
 import { Layout } from "../_metronic/layout";
 import BasePage from "./BasePage";
+import { GlobalContext } from "contexts/GlobalState";
 import { Logout, AuthPage } from "./modules/Auth";
 import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
 
 export function Routes() {
-  const isAuthorized = true
-  // const { isAuthorized } = useSelector(
-  //   ({ auth }) => ({
-  //     isAuthorized: auth.user != null,
-  //   }),
-  //   shallowEqual
-  // );
+  const [{ isAuthorized }] = React.useContext(GlobalContext);
+  console.log(isAuthorized);
 
   return (
     <Switch>
