@@ -1,10 +1,15 @@
-import { API_END_POINT } from "config";
 import { API_COMMON_STATUS, getUnknownStatusError } from "helpers/api-helper";
 import axios from "axios";
 
+const token = localStorage.getItem("token");
+
 export const getHomeSummary = async () => {
   try {
-    const response = await axios.get(`${API_END_POINT}/admin/home`);
+    const response = await axios.get(`/admin/home`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     console.log(response, "getHomeSummary response");
     let data = {};
     switch (response.status) {
@@ -17,7 +22,7 @@ export const getHomeSummary = async () => {
       case API_COMMON_STATUS.ERROR:
         data = {
           responseStatus: API_COMMON_STATUS.ERROR,
-          message: response.message
+          message: response.data.message
         };
         break;
       default:
