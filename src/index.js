@@ -22,7 +22,9 @@ import {
   MetronicSplashScreenProvider,
   MetronicSubheaderProvider
 } from "./_metronic/layout";
-import {MetronicI18nProvider} from "./_metronic/i18n";
+import { MetronicI18nProvider } from "./_metronic/i18n";
+import { API_END_POINT } from "config";
+import GlobalState from "contexts/GlobalState";
 
 /**
  * Base URL of the website.
@@ -31,26 +33,19 @@ import {MetronicI18nProvider} from "./_metronic/i18n";
  */
 const { PUBLIC_URL } = process.env;
 
-/**
- * Creates `axios-mock-adapter` instance for provided `axios` instance, add
- * basic Metronic mocks and returns it.
- *
- * @see https://github.com/ctimmerm/axios-mock-adapter
- */
-/* const mock = */ 
-
-/**
- * Inject metronic interceptors for axios.
- *
- * @see https://github.com/axios/axios#interceptors
- */
+axios.defaults.baseURL = API_END_POINT;
+axios.defaults.validateStatus = status => {
+  return status < 500;
+};
 
 ReactDOM.render(
   <MetronicI18nProvider>
     <MetronicLayoutProvider>
       <MetronicSubheaderProvider>
         <MetronicSplashScreenProvider>
-          <App   basename={PUBLIC_URL} />
+          <GlobalState>
+            <App basename={PUBLIC_URL} />
+          </GlobalState>
         </MetronicSplashScreenProvider>
       </MetronicSubheaderProvider>
     </MetronicLayoutProvider>
