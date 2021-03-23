@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { toAbsoluteUrl } from "../../../../_helpers";
 import { DropdownTopbarItemToggler } from "../../../../_partials/dropdowns";
+import { GlobalContext } from "contexts/GlobalState";
 
 export function UserProfileDropdown() {
-  // const { user } = useSelector((state) => state.auth);
-  const user = { firstname: "محمد", lastname: "جبر" };
-  console.log(user);
+  const [{ admin }] = React.useContext(GlobalContext);
 
   return (
     <Dropdown drop="down" alignRight>
@@ -26,12 +25,12 @@ export function UserProfileDropdown() {
             مرحبا,
           </span>
           <span className="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-1">
-            {user.firstname} {user.lastname}
+            {admin.firstname} {admin.lastname}
           </span>
 
           <span className="symbol symbol-35 symbol-light-success">
             <span className="symbol-label font-size-h5 font-weight-bold">
-              {user.firstname[0]}
+              {admin.firstname[0]}
             </span>
           </span>
         </div>
@@ -44,11 +43,11 @@ export function UserProfileDropdown() {
           }}
         >
           <div className="text-white m-0  mr-3 font-size-h5">
-            {user.firstname} {user.lastname}
+            {admin.firstname} {admin.lastname}
           </div>
           <div className="symbol bg-white-o-15 mr-3">
             <span className="symbol-label text-success font-weight-bold font-size-h4">
-              {user.firstname[0]}
+              {admin.firstname[0]}
             </span>
           </div>
         </div>
