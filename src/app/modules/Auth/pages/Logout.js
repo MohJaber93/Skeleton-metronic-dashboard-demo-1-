@@ -1,16 +1,18 @@
-import React, {Component} from "react";
-import {Redirect} from "react-router-dom";
-import {LayoutSplashScreen} from "../../../../_metronic/layout";
+import React, { useEffect } from "react";
+import { Redirect } from "react-router-dom";
+import { LayoutSplashScreen } from "../../../../_metronic/layout";
+import { GlobalContext } from "contexts/GlobalState";
+import { GLOBALSTATE_ACTIONS } from "../../../../constants";
 
-class Logout extends Component {
-  componentDidMount() {
-    this.props.logout();
-  }
+const Logout = () => {
+  const [{ isAuthorized }, dispatch] = React.useContext(GlobalContext);
 
-  render() {
-    const { hasAuthToken } = this.props;
-    return hasAuthToken ? <LayoutSplashScreen /> : <Redirect to="/auth/login" />;
-  }
-}
+  useEffect(() => {
+    console.log("test this");
+    dispatch({ type: GLOBALSTATE_ACTIONS.LOGOUT });
+  }, [dispatch]);
+
+  return isAuthorized ? <LayoutSplashScreen /> : <Redirect to="/auth/login" />;
+};
 
 export default Logout;
