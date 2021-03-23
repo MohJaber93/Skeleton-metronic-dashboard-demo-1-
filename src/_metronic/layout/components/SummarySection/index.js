@@ -42,7 +42,7 @@ const SummarySection = () => {
       </Typography>
       <Grid container spacing={3} className={classes.summarySectionContainer}>
         {CARDS_DATA.map(card => (
-          <Grid item xs={12} sm={6} lg={3}>
+          <Grid key={card.title} item xs={12} sm={6} lg={3}>
             <CustomCard
               title={card.title}
               value={card.value}
