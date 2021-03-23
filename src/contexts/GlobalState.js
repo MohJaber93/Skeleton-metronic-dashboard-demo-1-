@@ -2,7 +2,8 @@ import React, { createContext, useReducer } from "react";
 import { GLOBALSTATE_ACTIONS } from "../constants";
 
 const initialState = {
-  isAuthorized: !!localStorage.getItem("isAuth")
+  isAuthorized: !!localStorage.getItem("isAuth"),
+  admin: { firstname: "محمد", lastname: "جبر" }
 };
 
 export const GlobalContext = createContext(initialState);
@@ -14,15 +15,15 @@ const Reducer = (state, action) => {
       localStorage.setItem("token", payload.token);
       localStorage.setItem("isAuth", true);
       return {
-        isAuthorized: true,
-        ...state
+        ...state,
+        isAuthorized: true
       };
     }
     case GLOBALSTATE_ACTIONS.LOGOUT: {
       localStorage.clear();
       return {
-        isAuthorized: false,
-        ...state
+        ...state,
+        isAuthorized: false
       };
     }
     default:
