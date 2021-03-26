@@ -3,8 +3,8 @@ import { Box } from "@material-ui/core";
 
 import { getHomeSummary } from "api/Users";
 import { API_COMMON_STATUS } from "helpers/api-helper";
-import SummarySection from "../../_metronic/layout/components/SummarySection";
-import SummaryDetails from "../../_metronic/layout/components/SummaryDetails";
+import SummarySection from "_metronic/layout/components/SummarySection";
+import SummaryDetails from "_metronic/layout/components/SummaryDetails";
 import Snackbar from "_metronic/layout/components/CustomSnackbar";
 
 export function DashboardPage() {
