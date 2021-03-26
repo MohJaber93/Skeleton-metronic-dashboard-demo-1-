@@ -33,10 +33,10 @@ export function AsideMenuList({ layoutProps }) {
         </li>
         {/*end::1 Level*/}
 
-        {/* Applications */}
+        {/* الطلبات */}
         {/* begin::section */}
         <li className="menu-section ">
-          <h4 className="menu-text">Applications</h4>
+          <h4 className="menu-text">الطلبات</h4>
           <i className="menu-icon flaticon-more-v2"></i>
         </li>
         {/* end:: section */}
@@ -47,10 +47,10 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level*/}
         <li
-          className={`menu-item ${getMenuItemActive("/user-profile", false)}`}
+          className={`menu-item ${getMenuItemActive("/orders", false)}`}
           aria-haspopup="true"
         >
-          <NavLink className="menu-link" to="/user-profile">
+          <NavLink className="menu-link" to="/orders">
             <span className="svg-icon menu-icon">
               <SVG
                 src={toAbsoluteUrl(
@@ -58,7 +58,7 @@ export function AsideMenuList({ layoutProps }) {
                 )}
               />
             </span>
-            <span className="menu-text">المستخدمين</span>
+            <span className="menu-text">الطلبات</span>
           </NavLink>
         </li>
         {/*end::1 Level*/}
