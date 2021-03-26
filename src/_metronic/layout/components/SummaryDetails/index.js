@@ -24,7 +24,7 @@ const SummaryDetails = ({ homeDetails }) => {
         <Typography variant="h5" gutterBottom>
           {new Date().toDateString()}
         </Typography>
-        {/* <SummaryTable /> */}
+        <SummaryTable data={homeDetails.todaySummary} />
       </Grid>
     </Grid>
   );
