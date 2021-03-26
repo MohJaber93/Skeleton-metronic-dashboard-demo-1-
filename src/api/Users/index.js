@@ -10,13 +10,18 @@ export const getHomeSummary = async () => {
         Authorization: `Bearer ${token}`
       }
     });
-    console.log(response, "getHomeSummary response");
     let data = {};
     switch (response.status) {
       case API_COMMON_STATUS.SUCCESS:
         data = {
           responseStatus: API_COMMON_STATUS.SUCCESS,
           ...response.data
+        };
+        break;
+      case API_COMMON_STATUS.UNAUTHORIZED:
+        data = {
+          responseStatus: API_COMMON_STATUS.UNAUTHORIZED,
+          message: response.data.error
         };
         break;
       case API_COMMON_STATUS.ERROR:
