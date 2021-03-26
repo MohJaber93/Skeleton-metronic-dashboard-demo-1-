@@ -1,9 +1,7 @@
 import { API_COMMON_STATUS, getUnknownStatusError } from "helpers/api-helper";
 import axios from "axios";
 
-const token = localStorage.getItem("token");
-
-export const getHomeSummary = async () => {
+export const getHomeSummary = async token => {
   try {
     const response = await axios.get(`/admin/home`, {
       headers: {
