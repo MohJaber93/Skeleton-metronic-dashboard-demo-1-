@@ -3,7 +3,7 @@ import { Grid, Typography } from "@material-ui/core";
 import SummaryTable from "../SummaryTable";
 import { useStyles } from "./style";
 
-const SummaryDetails = () => {
+const SummaryDetails = ({ homeDetails }) => {
   const classes = useStyles();
 
   return (
@@ -15,7 +15,7 @@ const SummaryDetails = () => {
         <Typography variant="h5" gutterBottom>
           {new Date().toDateString()}
         </Typography>
-        <SummaryTable />
+        <SummaryTable data={homeDetails.todaySummary} />
       </Grid>
       <Grid item sm={6} style={{ padding: "5px", width: "100%" }}>
         <Typography variant="h5" gutterBottom>
@@ -24,7 +24,7 @@ const SummaryDetails = () => {
         <Typography variant="h5" gutterBottom>
           {new Date().toDateString()}
         </Typography>
-        <SummaryTable />
+        {/* <SummaryTable /> */}
       </Grid>
     </Grid>
   );

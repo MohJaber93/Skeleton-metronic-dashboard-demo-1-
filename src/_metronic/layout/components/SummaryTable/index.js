@@ -1,43 +1,32 @@
-import React from "react";
-import {
-  Grid,
-  Typography,
-  Table,
-  TableBody,
-  TableContainer,
-  Paper
-} from "@material-ui/core";
+import React, { useMemo } from "react";
+import { Table, TableBody, TableContainer, Paper } from "@material-ui/core";
 
 import { useStyles, StyledTableRow, StyledTableCell } from "./style";
 
-const SummaryTable = () => {
+const SummaryTable = ({ data }) => {
   const classes = useStyles();
-  function createData(name, calories) {
-    return { name, calories };
-  }
 
-  const rows = [
-    {
-      title: "إجمالي الطلبات",
-      value: "2"
-    },
-    {
-      title: "المبيعات",
-      value: "R$ 801.59"
-    },
-    {
-      title: "الطلبات المعلقة",
-      value: "1"
-    },
-    {
-      title: "الطلبات المستلمة",
-      value: "1"
-    },
-    {
-      title: "الطلبات المرفوضة",
-      value: "2"
-    }
-  ];
+  const rows = useMemo(
+    () => [
+      {
+        title: "إجمالي الطلبات",
+        value: data?.totalOrders
+      },
+      {
+        title: "الطلبات المعلقة",
+        value: data?.pendingOrders
+      },
+      {
+        title: "الطلبات المستلمة",
+        value: data?.deliveredOrders
+      },
+      {
+        title: "الطلبات المرفوضة",
+        value: data?.rejectedOrders
+      }
+    ],
+    [data]
+  );
 
   return (
     <TableContainer component={Paper}>

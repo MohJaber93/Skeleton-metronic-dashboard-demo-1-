@@ -1,40 +1,46 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import CustomCard from "../CustomCard";
 import GroupIcon from "@material-ui/icons/Group";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import ApartmentIcon from "@material-ui/icons/Apartment";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import { useStyles } from "./style";
 
-const SummarySection = () => {
+const SummarySection = ({ homeDetails }) => {
   const classes = useStyles();
-  const CARDS_DATA = [
-    {
-      title: "مجموع العملاء النشطين",
-      value: "55",
-      icon: GroupIcon,
-      className: classes.firstCard
-    },
-    {
-      title: "إجمالي الطلبات",
-      value: "20",
-      icon: ShoppingCartIcon,
-      className: classes.secondCard
-    },
-    {
-      title: "مجموع الفروع",
-      value: "35",
-      icon: ApartmentIcon,
-      className: classes.thirdCard
-    },
-    {
-      title: "إجمالي رأس المال",
-      value: "R$ 42,472.27",
-      icon: LocalAtmIcon,
-      className: classes.fourthCard
-    }
-  ];
+
+  const CARDS_DATA = useMemo(
+    () => [
+      {
+        title: "مجموع العملاء النشطين",
+        value: homeDetails.totalUser,
+        icon: GroupIcon,
+        className: classes.firstCard
+      },
+      {
+        title: "إجمالي الطلبات",
+        value: homeDetails.totalOrders,
+        icon: ShoppingCartIcon,
+        className: classes.secondCard
+      },
+      {
+        title: "مجموع المبيعات",
+        value: homeDetails.totalSeller,
+        icon: AttachMoneyIcon,
+        className: classes.thirdCard
+      },
+      {
+        title: "مجموع الأرباح",
+        value: homeDetails.totalEarning,
+        icon: LocalAtmIcon,
+        className: classes.fourthCard
+      }
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [homeDetails]
+  );
+
   return (
     <>
       <Typography variant="h5" gutterBottom>
