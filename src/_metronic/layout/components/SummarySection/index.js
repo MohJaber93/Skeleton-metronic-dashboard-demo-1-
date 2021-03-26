@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, CircularProgress } from "@material-ui/core";
 import CustomCard from "../CustomCard";
 import GroupIcon from "@material-ui/icons/Group";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -41,6 +41,9 @@ const SummarySection = ({ homeDetails }) => {
     [homeDetails]
   );
 
+  const renderCardValue = value =>
+    value || value === 0 ? value : <CircularProgress size={30} />;
+
   return (
     <>
       <Typography variant="h5" gutterBottom>
@@ -51,7 +54,7 @@ const SummarySection = ({ homeDetails }) => {
           <Grid key={card.title} item xs={12} sm={6} lg={3}>
             <CustomCard
               title={card.title}
-              value={card.value}
+              value={renderCardValue(card.value)}
               styleClass={card.className}
               icon={card.icon}
             />

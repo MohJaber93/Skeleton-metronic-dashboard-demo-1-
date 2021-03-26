@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-import { Table, TableBody, TableContainer, Paper } from "@material-ui/core";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  Paper,
+  CircularProgress
+} from "@material-ui/core";
 
 import { useStyles, StyledTableRow, StyledTableCell } from "./style";
 
@@ -28,6 +34,8 @@ const SummaryTable = ({ data }) => {
     [data]
   );
 
+  const renderCardValue = value =>
+    value || value === 0 ? value : <CircularProgress size={30} />;
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -42,7 +50,9 @@ const SummaryTable = ({ data }) => {
               >
                 {row.title}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.value}</StyledTableCell>
+              <StyledTableCell align="center">
+                {renderCardValue(row.value)}
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
