@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { LayoutSplashScreen } from "../../../../_metronic/layout";
 import { GlobalContext } from "contexts/GlobalState";
-import { GLOBALSTATE_ACTIONS } from "../../../../constants";
+import { GLOBALSTATE_ACTIONS } from "app/constants";
 
 const Logout = () => {
   const [{ isAuthorized }, dispatch] = React.useContext(GlobalContext);

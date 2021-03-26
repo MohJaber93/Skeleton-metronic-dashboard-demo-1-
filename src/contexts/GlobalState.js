@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { GLOBALSTATE_ACTIONS } from "../constants";
+import { GLOBALSTATE_ACTIONS } from "app/constants";
 
 const initialState = {
   isAuthorized: !!localStorage.getItem("isAuth"),

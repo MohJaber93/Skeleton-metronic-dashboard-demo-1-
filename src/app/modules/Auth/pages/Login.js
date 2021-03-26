@@ -5,7 +5,7 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import { login } from "api/Auth";
 import { API_COMMON_STATUS } from "helpers/api-helper";
 import { GlobalContext } from "contexts/GlobalState";
-import { GLOBALSTATE_ACTIONS } from "../../../../constants";
+import { GLOBALSTATE_ACTIONS } from "app/constants";
 
 /*
   INTL (i18n) docs:
