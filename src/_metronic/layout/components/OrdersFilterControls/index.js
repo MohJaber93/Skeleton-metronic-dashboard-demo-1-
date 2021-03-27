@@ -14,7 +14,11 @@ const OrdersFilterControls = () => {
     <Grid container spacing={2}>
       <Grid item md={3} sm={3} xs={12}>
         <CustomInput
+          type="number"
           placeholder="رقم الطلب"
+          inputProps={{
+            min: 1
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
