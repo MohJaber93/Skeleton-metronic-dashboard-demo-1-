@@ -10,8 +10,9 @@ import { useStyles } from "./style";
 
 const OrdersFilterControls = () => {
   const classes = useStyles();
+
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className={classes.ordersFilterContainer}>
       <Grid item md={3} sm={3} xs={12}>
         <CustomInput
           type="number"
