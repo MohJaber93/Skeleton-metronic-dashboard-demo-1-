@@ -20,7 +20,7 @@ const OrdersCards = () => {
               md={3}
             >
               <CustomCard className={`${classes.card} ${classes.pendingCard}`}>
-                100
+                <Typography variant="h5">10000000000</Typography>
               </CustomCard>
               <Typography variant="h6">الطلبات المعلقة</Typography>
             </Grid>
@@ -36,7 +36,7 @@ const OrdersCards = () => {
               <CustomCard
                 className={`${classes.card} ${classes.deliveredCard}`}
               >
-                2
+                <Typography variant="h5">2</Typography>
               </CustomCard>
               <Typography variant="h6">الطلبات المستلمة</Typography>
             </Grid>
@@ -50,7 +50,7 @@ const OrdersCards = () => {
               md={3}
             >
               <CustomCard className={`${classes.card} ${classes.rejectedCard}`}>
-                3
+                <Typography variant="h5">3</Typography>
               </CustomCard>
               <Typography variant="h6">الطلبات المرفوضة</Typography>
             </Grid>
@@ -64,7 +64,7 @@ const OrdersCards = () => {
               md={3}
             >
               <CustomCard className={`${classes.card} ${classes.totalCard}`}>
-                4
+                <Typography variant="h5">4</Typography>
               </CustomCard>
               <Typography variant="h6">كل الطلبات</Typography>
             </Grid>

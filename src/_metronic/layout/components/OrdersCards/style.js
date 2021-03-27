@@ -29,12 +29,15 @@ export const useStyles = makeStyles(theme => ({
     height: "90px !important",
     width: "90px",
     borderRadius: "50%",
-    textAlign: "center",
-    lineHeight: "90px",
     padding: "0  !important",
     color: "#fff  !important",
-    fontWeight: "bold",
-    fontSize: "20px"
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& > h5": {
+      wordBreak: "break-word",
+      textAlign: "center"
+    }
   },
   pendingCard: {
     background: "rgba(251, 140, 0, 0.65)"
