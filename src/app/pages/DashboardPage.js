@@ -15,7 +15,6 @@ export function DashboardPage() {
     const token = localStorage.getItem("token");
     getHomeSummary(token)
       .then(response => {
-        console.log(response);
         if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
           setHomeDetails(response);
         } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
