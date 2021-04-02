@@ -50,5 +50,11 @@ export const useStyles = makeStyles(theme => ({
   },
   totalCard: {
     background: "rgba(92, 48, 140, 0.84)"
+  },
+  acceptedCard: {
+    background: "#73c176"
+  },
+  othersCard: {
+    background: "rgba(173, 54, 114, 0.80)"
   }
 }));
