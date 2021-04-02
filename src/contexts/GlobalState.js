@@ -3,7 +3,10 @@ import { GLOBALSTATE_ACTIONS } from "app/constants";
 
 const initialState = {
   isAuthorized: !!localStorage.getItem("isAuth"),
-  admin: { firstname: "محمد", lastname: "جبر" }
+  admin: {
+    firstname: localStorage.getItem("firsname") || "",
+    lastname: localStorage.getItem("lastname") || ""
+  }
 };
 
 export const GlobalContext = createContext(initialState);
@@ -14,9 +17,15 @@ const Reducer = (state, action) => {
       const payload = action.data;
       localStorage.setItem("token", payload.token);
       localStorage.setItem("isAuth", true);
+      localStorage.setItem("firsname", payload.first_name);
+      localStorage.setItem("lastname", payload.last_name);
       return {
         ...state,
-        isAuthorized: true
+        isAuthorized: true,
+        admin: {
+          firstname: payload.first_name,
+          lastname: payload.last_name
+        }
       };
     }
     case GLOBALSTATE_ACTIONS.LOGOUT: {
