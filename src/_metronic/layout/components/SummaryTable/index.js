@@ -9,7 +9,7 @@ import {
 
 import { useStyles, StyledTableRow, StyledTableCell } from "./style";
 
-const SummaryTable = ({ data }) => {
+const SummaryTable = ({ data, weekly }) => {
   const classes = useStyles();
 
   const rows = useMemo(
@@ -33,6 +33,13 @@ const SummaryTable = ({ data }) => {
     ],
     [data]
   );
+
+  if (weekly) {
+    rows.push({
+      title: "الزبائن الجدد",
+      value: data?.newCustomer
+    });
+  }
 
   const renderCardValue = value =>
     value || value === 0 ? value : <CircularProgress size={30} />;
