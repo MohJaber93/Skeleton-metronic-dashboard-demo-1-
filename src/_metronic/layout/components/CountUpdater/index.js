@@ -22,7 +22,7 @@ const CountUpdater = ({ startNumber, onCounterFinished }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, startNumber]);
   return (
-    <Tooltip title="تحديث">
+    <Tooltip title="تحديث" placement="right">
       <IconButton
         color="primary"
         onClick={() => {
