@@ -127,11 +127,7 @@ export default function EnhancedTable({ data, updateTableData }) {
           updateTableData={updateTableData}
         />
         <TableContainer>
-          <Table
-            className={classes.table}
-            size="medium"
-            aria-label="enhanced table"
-          >
+          <Table className={classes.table} size="medium">
             <TableHeader
               classes={classes}
               numSelected={selected.length}
