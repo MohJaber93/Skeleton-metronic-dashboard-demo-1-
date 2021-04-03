@@ -4,7 +4,16 @@ export const GLOBALSTATE_ACTIONS = {
 };
 
 export const ORDERS_STATUS = {
-  pendingOrders: "الطلبات المعلقة",
-  deliveredOrders: "الطلبات المستلمة",
-  rejectedOrders: "الطلبات المرفوضة"
+  allOrders: "الكل",
+  acceptedOrders: "مقبول",
+  underOrder: "قيد الطلب",
+  rejectedOrders: "غير مقبول",
+  deliveredOrders: "تم التسليم",
+  otherOrders: "أخرى"
+};
+
+export const ORDERS_DELIVERY_METHOD = {
+  allOrders: "الكل",
+  receivingHand: "استلام يد",
+  delivery: "توصيل"
 };
