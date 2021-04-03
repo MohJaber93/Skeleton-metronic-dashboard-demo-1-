@@ -4,6 +4,7 @@ export const useStyles = makeStyles(theme => ({
   cardsSection: {
     height: "360px",
     padding: "5px",
+    marginBottom: "10px",
     "& div": {
       padding: "5px",
       color: "#000",
