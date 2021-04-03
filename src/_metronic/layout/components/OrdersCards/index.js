@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Typography, Grid } from "@material-ui/core";
+import { Typography, Grid, CircularProgress } from "@material-ui/core";
 import CustomCard from "../CustomCard";
 import { useStyles } from "./style";
 
@@ -43,6 +43,9 @@ const OrdersCards = ({ data }) => {
     [data]
   );
 
+  const renderCardValue = value =>
+    value || value === 0 ? value : <CircularProgress size={30} />;
+
   return (
     <CustomCard styleClass={classes.cardsSection}>
       <CustomCard>
@@ -59,7 +62,9 @@ const OrdersCards = ({ data }) => {
                 md={2}
               >
                 <CustomCard className={`${classes.card} ${card.className}`}>
-                  <Typography variant="h5">{card.value}</Typography>
+                  <Typography variant="h5">
+                    {renderCardValue(card.value)}
+                  </Typography>
                 </CustomCard>
                 <Typography variant="h6">{card.title}</Typography>
               </Grid>
