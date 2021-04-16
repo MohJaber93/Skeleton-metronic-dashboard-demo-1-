@@ -40,10 +40,10 @@ const headCells = [
     label: "قيمة الطلب"
   },
   {
-    id: "paymentStatus",
+    id: "deliveryMethod",
     numeric: true,
     disablePadding: false,
-    label: "حالة الدفع"
+    label: "طريقة التوصيل"
   },
   {
     id: "orderStatus",
