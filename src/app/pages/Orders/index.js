@@ -4,19 +4,17 @@ import OrdersFilterControls from "_metronic/layout/components/OrdersFilterContro
 import OrdersCards from "_metronic/layout/components/OrdersCards";
 import OrdersTable from "_metronic/layout/components/OrdersTable";
 import Snackbar from "_metronic/layout/components/CustomSnackbar";
-import { getOrders, filterByOrderNumber } from "api/Orders";
+import { getOrders } from "api/Orders";
 import { API_COMMON_STATUS } from "helpers/api-helper";
 
 const Orders = () => {
   const [ordersData, setOrdersData] = useState({});
   const [hasError, setHasError] = useState(false);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
-    updateTableData();
-    // filterByOrderNumber(token, 2).then(res => {
-    //   console.log("orders res filtered", res);
-    // });
-  }, []);
+    updateTableData(query);
+  }, [query]);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -26,9 +24,9 @@ const Orders = () => {
     setHasError(null);
   };
 
-  const updateTableData = () => {
-    const token = localStorage.getItem("token");
-    getOrders(token)
+  const updateTableData = query => {
+    console.log(query, "orders res");
+    getOrders(query)
       .then(response => {
         console.log(response, "orders res");
         if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
@@ -43,12 +41,57 @@ const Orders = () => {
       });
   };
 
+  const updateOrdersQuery = filterData => {
+    console.log("orders res", "filterData", filterData);
+    const {
+      orderNumber,
+      deliveryMethod,
+      orderStatus,
+      startDate,
+      endDate
+    } = filterData;
+    let filterQuery = "";
+    if (orderNumber) {
+      filterQuery = `order_number=${orderNumber}`;
+    }
+
+    if (deliveryMethod !== "الكل") {
+      filterQuery = filterQuery
+        ? `${filterQuery}&delivery_method=${deliveryMethod}`
+        : `delivery_method=${deliveryMethod}`;
+    }
+
+    if (orderStatus !== "الكل") {
+      filterQuery = filterQuery
+        ? `${filterQuery}&status=${orderStatus}`
+        : `status=${orderStatus}`;
+    }
+
+    if (startDate && endDate) {
+      const startDateWantedFormat = startDate.replaceAll("-", "/");
+      const endDateWantedFormat = endDate.replaceAll("-", "/");
+      filterQuery = filterQuery
+        ? `${filterQuery}&start=${startDateWantedFormat}&end=${endDateWantedFormat}`
+        : `start=${startDateWantedFormat}&end=${endDateWantedFormat}`;
+    }
+    setQuery(filterQuery);
+  };
+
+  const resetFilterOrdersData = () => {
+    setQuery("");
+  };
+
   return (
     <Box height="100%" style={{ backgroundColor: "#fff", padding: "5px" }}>
-      <OrdersFilterControls />
-      {/* My Page */}
-      <OrdersCards data={ordersData} />
-      <OrdersTable data={ordersData.orders} updateTableData={updateTableData} />
+      <OrdersFilterControls
+        onSearchClicked={updateOrdersQuery}
+        onResetClicked={resetFilterOrdersData}
+      />
+      <OrdersCards data={ordersData?.orders} />
+      <OrdersTable
+        data={ordersData?.orders?.orders}
+        updateTableData={() => updateTableData(query)}
+      />
       <Snackbar
         open={!!hasError}
         handleClose={handleClose}

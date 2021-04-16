@@ -8,23 +8,28 @@ import CustomButton from "../CustomButton";
 import { ORDERS_STATUS, ORDERS_DELIVERY_METHOD } from "app/constants";
 import { useStyles } from "./style";
 
-const OrdersFilterControls = () => {
-  const [filterData, setFilterData] = React.useState({
-    orderNumber: "",
-    deliveryMethod: "الكل",
-    orderStatus: "الكل",
-    startDate: "", // .replaceAll('-','/')
-    endDate: ""
-  });
+const initailFilterValue = {
+  orderNumber: "",
+  deliveryMethod: "الكل",
+  orderStatus: "الكل",
+  startDate: "",
+  endDate: ""
+};
+const OrdersFilterControls = ({ onSearchClicked, onResetClicked }) => {
+  const [filterData, setFilterData] = React.useState(initailFilterValue);
   const classes = useStyles();
 
   const changeHandler = event => {
     event.persist();
-    console.log("event.target.value", event.target.value);
     setFilterData(prevFilterData => ({
       ...prevFilterData,
       [event.target.name]: event.target.value
     }));
+  };
+
+  const resetFilter = () => {
+    onResetClicked();
+    setFilterData(initailFilterValue);
   };
 
   return (
@@ -104,11 +109,15 @@ const OrdersFilterControls = () => {
         sm={4}
         md={2}
       >
-        <CustomButton size="small" icon={<SearchIcon />}>
+        <CustomButton
+          size="small"
+          icon={<SearchIcon />}
+          onClick={() => onSearchClicked(filterData)}
+        >
           ابحث
         </CustomButton>
         <Tooltip title="اعادة تعيين فلتر البحث">
-          <IconButton>
+          <IconButton onClick={resetFilter}>
             <RotateLeftIcon color="error" />
           </IconButton>
         </Tooltip>
