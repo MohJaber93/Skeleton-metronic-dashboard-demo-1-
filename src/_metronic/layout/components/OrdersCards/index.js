@@ -10,33 +10,39 @@ const OrdersCards = ({ data }) => {
     () => [
       {
         title: "الطلبات المعلقة",
-        value: data.pendingOrders,
-        className: classes.pendingCard
+        value: data?.pendingOrders,
+        className: classes.pendingCard,
+        id: 1
       },
       {
         title: "الطلبات المقبولة",
-        value: data.acceptedOrders,
-        className: classes.acceptedCard
+        value: data?.acceptedOrders,
+        className: classes.acceptedCard,
+        id: 2
       },
       {
         title: "الطلبات المستلمة",
-        value: data.deliveredOrders,
-        className: classes.deliveredCard
+        value: data?.deliveredOrders,
+        className: classes.deliveredCard,
+        id: 3
       },
       {
         title: "الطلبات المرفوضة",
-        value: data.rejectedOrders,
-        className: classes.rejectedCard
+        value: data?.rejectedOrders,
+        className: classes.rejectedCard,
+        id: 4
       },
       {
         title: "طلبات أخرى",
-        value: data.othersOrder,
-        className: classes.othersCard
+        value: data?.othersOrder,
+        className: classes.othersCard,
+        id: 5
       },
       {
         title: "كل الطلبات",
-        value: data.totalOrders,
-        className: classes.totalCard
+        value: data?.totalOrders,
+        className: classes.totalCard,
+        id: 6
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,6 +66,7 @@ const OrdersCards = ({ data }) => {
                 alignItems="center"
                 xs={4}
                 md={2}
+                key={card.id}
               >
                 <CustomCard className={`${classes.card} ${card.className}`}>
                   <Typography variant="h5">
