@@ -4,8 +4,8 @@ import TimerIcon from "@material-ui/icons/Timer";
 
 const CountUpdater = ({ startNumber, onCounterFinished }) => {
   const [count, setCount] = React.useState(startNumber);
+
   React.useEffect(() => {
-    console.log("count", count);
     let timer;
     if (count !== 0) {
       timer = setTimeout(() => {
@@ -21,6 +21,7 @@ const CountUpdater = ({ startNumber, onCounterFinished }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, startNumber]);
+
   return (
     <Tooltip title="تحديث" placement="right">
       <IconButton
