@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import OrdersFilterControls from "_metronic/layout/components/OrdersFilterControls";
 import OrdersCards from "_metronic/layout/components/OrdersCards";
 import OrdersTable from "_metronic/layout/components/OrdersTable";
@@ -25,10 +25,8 @@ const Orders = () => {
   };
 
   const updateTableData = query => {
-    console.log(query, "orders res");
     getOrders(query)
       .then(response => {
-        console.log(response, "orders res");
         if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
           setOrdersData(response);
         } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
@@ -42,7 +40,6 @@ const Orders = () => {
   };
 
   const updateOrdersQuery = filterData => {
-    console.log("orders res", "filterData", filterData);
     const {
       orderNumber,
       deliveryMethod,
