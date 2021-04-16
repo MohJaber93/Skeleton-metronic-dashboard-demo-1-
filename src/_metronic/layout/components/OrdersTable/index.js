@@ -12,6 +12,11 @@ import {
   Checkbox,
   makeStyles
 } from "@material-ui/core";
+import CustomSelect from "../CustomSelect";
+import Snackbar from "_metronic/layout/components/CustomSnackbar";
+import { ORDERS_STATUS } from "app/constants";
+import { updateOrderStatus } from "api/Orders";
+import { API_COMMON_STATUS } from "helpers/api-helper";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -66,6 +71,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function EnhancedTable({ data, updateTableData }) {
   const classes = useStyles();
+  const [ordersStatuses, setOrdersStatuses] = React.useState({});
+  const [snackbarState, setSnackbarState] = React.useState({
+    open: false,
+    message: "",
+    variant: ""
+  });
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -80,20 +91,20 @@ export default function EnhancedTable({ data, updateTableData }) {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = data.map(n => n.name);
+      const newSelecteds = data.map(item => item.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
+  const handleClick = (event, id) => {
     //maybe change to order uuid
-    const selectedIndex = selected.indexOf(name);
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -117,7 +128,60 @@ export default function EnhancedTable({ data, updateTableData }) {
     setPage(0);
   };
 
-  const isSelected = name => selected.indexOf(name) !== -1;
+  const isSelected = id => selected.indexOf(id) !== -1;
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbarState(prevSnackbarState => ({
+      ...prevSnackbarState,
+      open: false
+    }));
+  };
+
+  const orderStatusChangeHandler = (event, orderId) => {
+    const updatedValue = event.target.value;
+    const updatePaylod = {
+      orderId,
+      updatedValue
+    };
+    updateOrderStatus(updatePaylod)
+      .then(response => {
+        if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
+          setOrdersStatuses(prevOrdersStatuses => ({
+            ...prevOrdersStatuses,
+            [orderId]: updatedValue
+          }));
+          setSnackbarState({
+            open: true,
+            message: response.message,
+            variant: "success"
+          });
+        } else {
+          setSnackbarState({
+            open: true,
+            message: response.message,
+            variant: "error"
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        console.error(error);
+      });
+  };
+
+  React.useEffect(() => {
+    if (data) {
+      const formatedOrdersStatuses = {};
+      data.forEach(order => {
+        formatedOrdersStatuses[order.id] = order.order_status;
+      });
+      setOrdersStatuses(formatedOrdersStatuses);
+    }
+  }, [data]);
 
   return (
     <div className={classes.root}>
@@ -135,23 +199,23 @@ export default function EnhancedTable({ data, updateTableData }) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={data?.length}
+              rowCount={data ? data?.length : 0}
             />
             <TableBody>
               {stableSort(data, getComparator(order, orderBy))
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 ?.map((order, index) => {
-                  const isItemSelected = isSelected(order.name);
+                  const isItemSelected = isSelected(order.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, order.name)}
+                      onClick={event => handleClick(event, order.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={index}
+                      key={order.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -173,9 +237,23 @@ export default function EnhancedTable({ data, updateTableData }) {
                       <TableCell align="right">{order.order_date}</TableCell>
                       <TableCell align="center">{order.order_total}</TableCell>
                       <TableCell align="center">
-                        {order.payment_status}
+                        {order.delivery_method}
                       </TableCell>
-                      <TableCell align="center">{order.order_status}</TableCell>
+                      <TableCell align="right">
+                        {/* {order.order_status} */}
+                        <CustomSelect
+                          data={ORDERS_STATUS}
+                          value={
+                            ordersStatuses[order.id]
+                              ? ordersStatuses[order.id]
+                              : order.order_status
+                          }
+                          onChange={event =>
+                            orderStatusChangeHandler(event, order.id)
+                          }
+                          fullWidth
+                        />
+                      </TableCell>
                       <TableCell align="center">{order.fees}</TableCell>
                     </TableRow>
                   );
@@ -186,7 +264,7 @@ export default function EnhancedTable({ data, updateTableData }) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={data?.length}
+          count={data ? data?.length : 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
@@ -194,6 +272,12 @@ export default function EnhancedTable({ data, updateTableData }) {
           style={{ direction: "ltr" }}
         />
       </Paper>
+      <Snackbar
+        open={!!snackbarState.open}
+        handleClose={handleCloseSnackbar}
+        type={snackbarState.variant}
+        text={snackbarState.message}
+      />
     </div>
   );
 }
