@@ -17,3 +17,9 @@ export const ORDERS_DELIVERY_METHOD = {
   receivingHand: "استلام يد",
   delivery: "توصيل"
 };
+
+export const USERS_TYPE = {
+  allUsers: "الكل",
+  seller: "بائع",
+  buyer: "مشتري"
+};
