@@ -52,16 +52,37 @@ export function AsideMenuList({ layoutProps }) {
         >
           <NavLink className="menu-link" to="/orders">
             <span className="svg-icon menu-icon">
-              <SVG
-                src={toAbsoluteUrl(
-                  "/media/svg/icons/Communication/Add-user.svg"
-                )}
-              />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Cart1.svg")} />
             </span>
             <span className="menu-text">الطلبات</span>
           </NavLink>
         </li>
         {/*end::1 Level*/}
+
+        {/* المستخدمين */}
+        {/* begin::section */}
+        <li className="menu-section ">
+          <h4 className="menu-text">المستخدمين</h4>
+          <i className="menu-icon flaticon-more-v2"></i>
+        </li>
+        {/* end:: section */}
+
+        {/*begin::1 Level*/}
+        <li
+          className={`menu-item ${getMenuItemActive("/users", false)}`}
+          aria-haspopup="true"
+        >
+          <NavLink className="menu-link" to="/users">
+            <span className="svg-icon menu-icon">
+              <SVG
+                src={toAbsoluteUrl("/media/svg/icons/Communication/Group.svg")}
+              />
+            </span>
+            <span className="menu-text">المستخدمين</span>
+          </NavLink>
+        </li>
+        {/*end::1 Level*/}
+
         {/* Error Pages */}
         {/*begin::1 Level*/}
         {/* <li
