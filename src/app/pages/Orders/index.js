@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { Box } from "@material-ui/core";
 import OrdersFilterControls from "_metronic/layout/components/OrdersFilterControls";
 import RoundedCards from "_metronic/layout/components/RoundedCards";
-import OrdersTable from "_metronic/layout/components/OrdersTable";
+import CustomTable from "_metronic/layout/components/CustomTable";
 import Snackbar from "_metronic/layout/components/CustomSnackbar";
 import { getOrders } from "api/Orders";
 import { API_COMMON_STATUS } from "helpers/api-helper";
@@ -129,7 +129,7 @@ const Orders = () => {
         onResetClicked={resetFilterOrdersData}
       />
       <RoundedCards data={CARDS_DATA} />
-      <OrdersTable
+      <CustomTable
         data={ordersData?.orders}
         updateTableData={() => updateTableData(query)}
       />
