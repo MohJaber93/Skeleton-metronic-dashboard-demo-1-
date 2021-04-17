@@ -195,6 +195,7 @@ export default function EnhancedTable({ data, updateTableData, usersTable }) {
         <TableToolbar
           numSelected={selected.length}
           updateTableData={updateTableData}
+          usersTable={usersTable}
         />
         <TableContainer className={classes.tableContainer}>
           {data?.length ? (

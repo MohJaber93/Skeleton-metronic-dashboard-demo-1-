@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Toolbar, Typography } from "@material-ui/core";
+import { Toolbar, Typography, IconButton, Tooltip } from "@material-ui/core";
 import clsx from "clsx";
 import { useStyles } from "./style";
 import CountUpdater from "_metronic/layout/components/CountUpdater";
-// import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@material-ui/icons/Delete";
+import UpdateIcon from "@material-ui/icons/Update";
 
 const TableToolbar = props => {
   const classes = useStyles();
-  const { numSelected, updateTableData } = props;
+  const { numSelected, updateTableData, usersTable } = props;
 
   return (
     <Toolbar
@@ -33,7 +34,16 @@ const TableToolbar = props => {
           </IconButton>
         </Tooltip>
       )} */}
-      <CountUpdater startNumber={60} onCounterFinished={updateTableData} />
+      {usersTable && (
+        <Tooltip title="تحديث بيانات المستخدمين">
+          <IconButton color="primary" onClick={updateTableData}>
+            <UpdateIcon />
+          </IconButton>
+        </Tooltip>
+      )}
+      {!usersTable && (
+        <CountUpdater startNumber={60} onCounterFinished={updateTableData} />
+      )}
     </Toolbar>
   );
 };
