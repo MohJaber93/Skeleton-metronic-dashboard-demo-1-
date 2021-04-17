@@ -2,7 +2,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 export const useStyles = makeStyles(theme => ({
   cardsSection: {
-    height: "360px",
+    height: ({ users }) => (users ? "180px" : "360px"),
     padding: "5px",
     marginBottom: "10px",
     "& div": {
@@ -15,15 +15,15 @@ export const useStyles = makeStyles(theme => ({
       "& > div": {
         height: "100%",
         "& > div": {
-          height: "50%",
+          height: ({ users }) => (users ? "100%" : "50%"),
           [theme.breakpoints.up("md")]: {
-            height: "100%"
+            height: "100% !important"
           }
         }
       }
     },
     [theme.breakpoints.up("md")]: {
-      height: "180px"
+      height: "180px !important"
     }
   },
   card: {

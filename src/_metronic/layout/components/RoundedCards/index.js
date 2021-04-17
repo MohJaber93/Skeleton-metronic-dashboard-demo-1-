@@ -3,8 +3,8 @@ import { Typography, Grid, CircularProgress } from "@material-ui/core";
 import CustomCard from "../CustomCard";
 import { useStyles } from "./style";
 
-const OrdersCards = ({ data }) => {
-  const classes = useStyles();
+const OrdersCards = ({ data, users }) => {
+  const classes = useStyles({ users });
 
   const renderCardValue = value =>
     value || value === 0 ? value : <CircularProgress size={30} />;
@@ -22,7 +22,7 @@ const OrdersCards = ({ data }) => {
                 justify="space-between"
                 alignItems="center"
                 xs={4}
-                md={2}
+                md={users ? 4 : 2}
                 key={card.id}
               >
                 <CustomCard
