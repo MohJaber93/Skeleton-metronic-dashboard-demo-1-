@@ -10,7 +10,7 @@ const theme = createMuiTheme(
     typography: {
       fontFamily: ["Poppins"].join(","),
       h6: {
-        fontSize: "1.22rem"
+        fontSize: "1.2rem"
       }
     },
 
