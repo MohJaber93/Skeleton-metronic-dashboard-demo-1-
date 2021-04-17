@@ -7,7 +7,7 @@ import SummarySection from "_metronic/layout/components/SummarySection";
 import SummaryDetails from "_metronic/layout/components/SummaryDetails";
 import Snackbar from "_metronic/layout/components/CustomSnackbar";
 
-export function DashboardPage() {
+const DashboardPage = () => {
   const [homeDetails, setHomeDetails] = useState({});
   const [hasError, setHasError] = useState(false);
 
@@ -49,4 +49,6 @@ export function DashboardPage() {
       />
     </>
   );
-}
+};
+
+export default DashboardPage;
