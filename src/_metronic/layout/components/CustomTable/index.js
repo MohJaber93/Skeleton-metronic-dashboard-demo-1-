@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function EnhancedTable({ data, updateTableData }) {
+export default function EnhancedTable({ data, updateTableData, usersTable }) {
   const classes = useStyles();
   const [ordersStatuses, setOrdersStatuses] = React.useState({});
   const [snackbarState, setSnackbarState] = React.useState({
@@ -207,6 +207,7 @@ export default function EnhancedTable({ data, updateTableData }) {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={data ? data?.length : 0}
+                usersTable={usersTable}
               />
 
               <TableBody>

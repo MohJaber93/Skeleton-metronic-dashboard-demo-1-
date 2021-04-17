@@ -7,52 +7,7 @@ import {
   TableSortLabel,
   Checkbox
 } from "@material-ui/core";
-
-const headCells = [
-  {
-    id: "number",
-    numeric: false,
-    disablePadding: true,
-    label: "رقم الطلب"
-  },
-  {
-    id: "userName",
-    numeric: false,
-    disablePadding: false,
-    label: "اسم المستخدم"
-  },
-  {
-    id: "sellerName",
-    numeric: true,
-    disablePadding: false,
-    label: "اسم البائع"
-  },
-  {
-    id: "orderDate",
-    numeric: true,
-    disablePadding: false,
-    label: "تاريخ الطلب"
-  },
-  {
-    id: "orderTotal",
-    numeric: true,
-    disablePadding: false,
-    label: "قيمة الطلب"
-  },
-  {
-    id: "deliveryMethod",
-    numeric: true,
-    disablePadding: false,
-    label: "طريقة التوصيل"
-  },
-  {
-    id: "orderStatus",
-    numeric: true,
-    disablePadding: false,
-    label: "حالة الطلب"
-  },
-  { id: "fees", numeric: true, disablePadding: false, label: "المصاريف" }
-];
+import { ordersHeadCells, usersHeadCells } from "app/constants";
 
 const TableHeader = props => {
   const {
@@ -62,11 +17,14 @@ const TableHeader = props => {
     orderBy,
     numSelected,
     rowCount,
-    onRequestSort
+    onRequestSort,
+    usersTable
   } = props;
   const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
+
+  const HEAD_CELLS = usersTable ? usersHeadCells : ordersHeadCells;
 
   return (
     <TableHead>
@@ -79,7 +37,7 @@ const TableHeader = props => {
             inputProps={{ "aria-label": "select all desserts" }}
           />
         </TableCell>
-        {headCells.map(headCell => (
+        {HEAD_CELLS.map(headCell => (
           <TableCell
             key={headCell.id}
             align="right"
