@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Box } from "@material-ui/core";
 import OrdersFilterControls from "_metronic/layout/components/OrdersFilterControls";
-import OrdersCards from "_metronic/layout/components/OrdersCards";
+import RoundedCards from "_metronic/layout/components/RoundedCards";
 import OrdersTable from "_metronic/layout/components/OrdersTable";
 import Snackbar from "_metronic/layout/components/CustomSnackbar";
 import { getOrders } from "api/Orders";
@@ -79,13 +79,56 @@ const Orders = () => {
     setQuery("");
   };
 
+  const CARDS_DATA = useMemo(
+    () => [
+      {
+        title: "الطلبات المعلقة",
+        value: ordersData?.orders?.pendingOrders,
+        className: "pendingCard",
+        id: 1
+      },
+      {
+        title: "الطلبات المقبولة",
+        value: ordersData?.orders?.acceptedOrders,
+        className: "acceptedCard",
+        id: 2
+      },
+      {
+        title: "الطلبات المستلمة",
+        value: ordersData?.orders?.deliveredOrders,
+        className: "deliveredCard",
+        id: 3
+      },
+      {
+        title: "الطلبات المرفوضة",
+        value: ordersData?.orders?.rejectedOrders,
+        className: "rejectedCard",
+        id: 4
+      },
+      {
+        title: "طلبات أخرى",
+        value: ordersData?.orders?.othersOrder,
+        className: "othersCard",
+        id: 5
+      },
+      {
+        title: "كل الطلبات",
+        value: ordersData?.orders?.totalOrders,
+        className: "totalCard",
+        id: 6
+      }
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ordersData?.orders]
+  );
+
   return (
     <Box height="100%" style={{ backgroundColor: "#fff", padding: "5px" }}>
       <OrdersFilterControls
         onSearchClicked={updateOrdersQuery}
         onResetClicked={resetFilterOrdersData}
       />
-      <OrdersCards data={ordersData?.orders} />
+      <RoundedCards data={CARDS_DATA} />
       <OrdersTable
         data={ordersData?.orders?.orders}
         updateTableData={() => updateTableData(query)}
