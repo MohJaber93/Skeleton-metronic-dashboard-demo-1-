@@ -29,7 +29,7 @@ const Orders = () => {
     getOrders(query)
       .then(response => {
         if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
-          setOrdersData(response);
+          setOrdersData(response.orders);
         } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
           setHasError(true);
         }
@@ -83,37 +83,37 @@ const Orders = () => {
     () => [
       {
         title: "الطلبات المعلقة",
-        value: ordersData?.orders?.pendingOrders,
+        value: ordersData?.pendingOrders,
         className: "pendingCard",
         id: 1
       },
       {
         title: "الطلبات المقبولة",
-        value: ordersData?.orders?.acceptedOrders,
+        value: ordersData?.acceptedOrders,
         className: "acceptedCard",
         id: 2
       },
       {
         title: "الطلبات المستلمة",
-        value: ordersData?.orders?.deliveredOrders,
+        value: ordersData?.deliveredOrders,
         className: "deliveredCard",
         id: 3
       },
       {
         title: "الطلبات المرفوضة",
-        value: ordersData?.orders?.rejectedOrders,
+        value: ordersData?.rejectedOrders,
         className: "rejectedCard",
         id: 4
       },
       {
         title: "طلبات أخرى",
-        value: ordersData?.orders?.othersOrder,
+        value: ordersData?.othersOrder,
         className: "othersCard",
         id: 5
       },
       {
         title: "كل الطلبات",
-        value: ordersData?.orders?.totalOrders,
+        value: ordersData?.totalOrders,
         className: "totalCard",
         id: 6
       }
@@ -130,7 +130,7 @@ const Orders = () => {
       />
       <RoundedCards data={CARDS_DATA} />
       <OrdersTable
-        data={ordersData?.orders?.orders}
+        data={ordersData?.orders}
         updateTableData={() => updateTableData(query)}
       />
       <Snackbar
