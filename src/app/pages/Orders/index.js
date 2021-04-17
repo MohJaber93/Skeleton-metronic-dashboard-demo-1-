@@ -25,6 +25,7 @@ const Orders = () => {
   };
 
   const updateTableData = query => {
+    setOrdersData({});
     getOrders(query)
       .then(response => {
         if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {

@@ -9,6 +9,9 @@ import {
   TablePagination,
   TableRow,
   Paper,
+  Box,
+  CircularProgress,
+  Typography,
   Checkbox,
   makeStyles
 } from "@material-ui/core";
@@ -48,6 +51,9 @@ function stableSort(array, comparator) {
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%"
+  },
+  tableContainer: {
+    minHeight: "300px"
   },
   paper: {
     width: "100%",
@@ -190,76 +196,102 @@ export default function EnhancedTable({ data, updateTableData }) {
           numSelected={selected.length}
           updateTableData={updateTableData}
         />
-        <TableContainer>
-          <Table className={classes.table} size="medium">
-            <TableHeader
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={data ? data?.length : 0}
-            />
-            <TableBody>
-              {stableSort(data, getComparator(order, orderBy))
-                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                ?.map((order, index) => {
-                  const isItemSelected = isSelected(order.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+        <TableContainer className={classes.tableContainer}>
+          {data?.length ? (
+            <Table className={classes.table} size="medium">
+              <TableHeader
+                classes={classes}
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={data ? data?.length : 0}
+              />
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={event => handleClick(event, order.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={order.id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
+              <TableBody>
+                {stableSort(data, getComparator(order, orderBy))
+                  ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  ?.map((order, index) => {
+                    const isItemSelected = isSelected(order.id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+
+                    return (
+                      <TableRow
+                        hover
+                        onClick={event => handleClick(event, order.id)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={order.id}
+                        selected={isItemSelected}
                       >
-                        {order.order_number}
-                      </TableCell>
-                      <TableCell align="center">{order.user_name}</TableCell>
-                      <TableCell align="center">{order.seller_name}</TableCell>
-                      <TableCell align="right">{order.order_date}</TableCell>
-                      <TableCell align="center">{order.order_total}</TableCell>
-                      <TableCell align="center">
-                        {order.delivery_method}
-                      </TableCell>
-                      <TableCell align="right">
-                        {/* {order.order_status} */}
-                        <CustomSelect
-                          data={ORDERS_STATUS}
-                          value={
-                            ordersStatuses[order.id]
-                              ? ordersStatuses[order.id]
-                              : order.order_status
-                          }
-                          onChange={event =>
-                            orderStatusChangeHandler(event, order.id)
-                          }
-                          fullWidth
-                        />
-                      </TableCell>
-                      <TableCell align="center">{order.fees}</TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={isItemSelected}
+                            inputProps={{ "aria-labelledby": labelId }}
+                          />
+                        </TableCell>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          {order.order_number}
+                        </TableCell>
+                        <TableCell align="center">{order.user_name}</TableCell>
+                        <TableCell align="center">
+                          {order.seller_name}
+                        </TableCell>
+                        <TableCell align="right">{order.order_date}</TableCell>
+                        <TableCell align="center">
+                          {order.order_total}
+                        </TableCell>
+                        <TableCell align="center">
+                          {order.delivery_method}
+                        </TableCell>
+                        <TableCell align="right">
+                          {/* {order.order_status} */}
+                          <CustomSelect
+                            data={ORDERS_STATUS}
+                            value={
+                              ordersStatuses[order.id]
+                                ? ordersStatuses[order.id]
+                                : order.order_status
+                            }
+                            onChange={event =>
+                              orderStatusChangeHandler(event, order.id)
+                            }
+                            fullWidth
+                          />
+                        </TableCell>
+                        <TableCell align="center">{order.fees}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          ) : (
+            <>
+              {!data && (
+                <Box
+                  height="250px"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <CircularProgress size={50} />
+                </Box>
+              )}
+
+              {data && !data.length && (
+                <Typography align="center" variant="h4">
+                  عذرا لايوجد أي طلب حاليا
+                </Typography>
+              )}
+            </>
+          )}
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
