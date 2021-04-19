@@ -16,6 +16,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 import CustomSelect from "../CustomSelect";
+import UsersTableActions from "../UsersTableActions";
 import Snackbar from "_metronic/layout/components/CustomSnackbar";
 import { ORDERS_STATUS } from "app/constants";
 import { updateOrderStatus } from "api/Orders";
@@ -105,7 +106,6 @@ export default function EnhancedTable({ data, updateTableData, usersTable }) {
   };
 
   const handleClick = (event, id) => {
-    //maybe change to order uuid
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
@@ -180,14 +180,14 @@ export default function EnhancedTable({ data, updateTableData, usersTable }) {
   };
 
   React.useEffect(() => {
-    if (data) {
+    if (data && !usersTable) {
       const formatedOrdersStatuses = {};
       data.forEach(order => {
         formatedOrdersStatuses[order.id] = order.order_status;
       });
       setOrdersStatuses(formatedOrdersStatuses);
     }
-  }, [data]);
+  }, [data, usersTable]);
 
   return (
     <div className={classes.root}>
@@ -214,22 +214,22 @@ export default function EnhancedTable({ data, updateTableData, usersTable }) {
               <TableBody>
                 {stableSort(data, getComparator(order, orderBy))
                   ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  ?.map((order, index) => {
-                    const isItemSelected = isSelected(order.id);
+                  ?.map((item, index) => {
+                    const isItemSelected = isSelected(item.id);
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
                       <TableRow
                         hover
-                        onClick={event => handleClick(event, order.id)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={order.id}
+                        key={item.id}
                         selected={isItemSelected}
                       >
                         <TableCell padding="checkbox">
                           <Checkbox
+                            onClick={event => handleClick(event, item.id)}
                             checked={isItemSelected}
                             inputProps={{ "aria-labelledby": labelId }}
                           />
@@ -240,35 +240,51 @@ export default function EnhancedTable({ data, updateTableData, usersTable }) {
                           scope="row"
                           padding="none"
                         >
-                          {order.order_number}
-                        </TableCell>
-                        <TableCell align="center">{order.user_name}</TableCell>
-                        <TableCell align="center">
-                          {order.seller_name}
-                        </TableCell>
-                        <TableCell align="right">{order.order_date}</TableCell>
-                        <TableCell align="center">
-                          {order.order_total}
+                          {!usersTable ? item.order_number : index + 1}
                         </TableCell>
                         <TableCell align="center">
-                          {order.delivery_method}
+                          {!usersTable ? item.user_name : item.name}
+                        </TableCell>
+                        <TableCell align="center">
+                          {!usersTable
+                            ? item.seller_name
+                            : item.account_name || "account name"}
                         </TableCell>
                         <TableCell align="right">
-                          {/* {order.order_status} */}
-                          <CustomSelect
-                            data={ORDERS_STATUS}
-                            value={
-                              ordersStatuses[order.id]
-                                ? ordersStatuses[order.id]
-                                : order.order_status
-                            }
-                            onChange={event =>
-                              orderStatusChangeHandler(event, order.id)
-                            }
-                            fullWidth
-                          />
+                          {!usersTable
+                            ? item.order_date
+                            : item.email || "email@gmail.com"}
                         </TableCell>
-                        <TableCell align="center">{order.fees}</TableCell>
+                        <TableCell align="center">
+                          {!usersTable ? item.order_total : item.phone}
+                        </TableCell>
+                        <TableCell align="center">
+                          {!usersTable ? item.delivery_method : item.type}
+                        </TableCell>
+                        <TableCell align="center">
+                          {usersTable ? (
+                            <UsersTableActions
+                              user={item}
+                              updateSnackbarState={setSnackbarState}
+                            />
+                          ) : (
+                            <CustomSelect
+                              data={ORDERS_STATUS}
+                              value={
+                                ordersStatuses[item.id]
+                                  ? ordersStatuses[item.id]
+                                  : item.order_status
+                              }
+                              onChange={event =>
+                                orderStatusChangeHandler(event, item.id)
+                              }
+                              fullWidth
+                            />
+                          )}
+                        </TableCell>
+                        {!usersTable && (
+                          <TableCell align="center">{item.fees}</TableCell>
+                        )}
                       </TableRow>
                     );
                   })}
