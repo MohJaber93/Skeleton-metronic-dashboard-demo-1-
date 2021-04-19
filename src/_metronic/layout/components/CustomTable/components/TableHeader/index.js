@@ -40,7 +40,7 @@ const TableHeader = props => {
         {HEAD_CELLS.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.label === "اجراءات" ? "center" : "right"}
+            align={headCell.label === "اجراءات" ? "left" : "right"}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
