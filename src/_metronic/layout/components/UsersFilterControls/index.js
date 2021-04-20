@@ -13,6 +13,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CustomInput from "../CustomInput";
 import CustomSelect from "../CustomSelect";
 import CustomButton from "../CustomButton";
+import UserFormDialog from "../UserFormDialog";
 import { USERS_TYPE } from "app/constants";
 import { useStyles } from "./style";
 
@@ -22,9 +23,18 @@ const initailFilterValue = {
 };
 const UsersFilterControls = ({ onSearchClicked, onResetClicked }) => {
   const [filterData, setFilterData] = React.useState(initailFilterValue);
+  const [openUserDialog, setOpenUserDialog] = React.useState(false);
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("xs"));
+
+  const handleClickOpenUserDialog = () => {
+    setOpenUserDialog(true);
+  };
+
+  const handleCloseUserDialog = () => {
+    setOpenUserDialog(false);
+  };
 
   const changeHandler = event => {
     event.persist();
@@ -104,10 +114,16 @@ const UsersFilterControls = ({ onSearchClicked, onResetClicked }) => {
         <CustomButton
           size="small"
           icon={<PersonAddIcon />}
-          onClick={() => onSearchClicked(filterData)}
+          onClick={handleClickOpenUserDialog}
         >
           اضافة مستخدم
         </CustomButton>
+        {openUserDialog && (
+          <UserFormDialog
+            open={openUserDialog}
+            handleClose={handleCloseUserDialog}
+          />
+        )}
       </Grid>
     </Grid>
   );
