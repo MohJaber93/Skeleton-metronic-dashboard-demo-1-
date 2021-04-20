@@ -57,7 +57,7 @@ const Users = () => {
       filterQuery = `name=${userName}`;
     }
 
-    if (userType) {
+    if (userType !== "الكل") {
       filterQuery = filterQuery
         ? `${filterQuery}&type=${userType}`
         : `type=${userType}`;
