@@ -1,18 +1,18 @@
 import React, { useLayoutEffect } from "react";
-import { KTUtil } from "../../_assets/js/components/util";
-import KTLayoutHeader from "../../_assets/js/layout/base/header";
-import KTLayoutHeaderMenu from "../../_assets/js/layout/base/header-menu";
-import KTLayoutHeaderTopbar from "../../_assets/js/layout/base/header-topbar";
-import KTLayoutBrand from "../../_assets/js/layout/base/brand";
-import KTLayoutAside from "../../_assets/js/layout/base/aside";
-import KTLayoutAsideToggle from "../../_assets/js/layout/base/aside-toggle";
-import KTLayoutAsideMenu from "../../_assets/js/layout/base/aside-menu";
-import KTLayoutContent from "../../_assets/js/layout/base/content";
-import KTLayoutFooter from "../../_assets/js/layout/base/footer";
-import KTLayoutSubheader from "../../_assets/js/layout/base/subheader";
-import KTLayoutScrolltop from "../../_assets/js/layout/extended/scrolltop";
-import KTLayoutStickyCard from "../../_assets/js/layout/base/sticky-card";
-import KTLayoutStretchedCard from "../../_assets/js/layout/base/stretched-card";
+import { KTUtil } from "_metronic/_assets/js/components/util";
+import KTLayoutHeader from "_metronic/_assets/js/layout/base/header";
+import KTLayoutHeaderMenu from "_metronic/_assets/js/layout/base/header-menu";
+import KTLayoutHeaderTopbar from "_metronic/_assets/js/layout/base/header-topbar";
+import KTLayoutBrand from "_metronic/_assets/js/layout/base/brand";
+import KTLayoutAside from "_metronic/_assets/js/layout/base/aside";
+import KTLayoutAsideToggle from "_metronic/_assets/js/layout/base/aside-toggle";
+import KTLayoutAsideMenu from "_metronic/_assets/js/layout/base/aside-menu";
+import KTLayoutContent from "_metronic/_assets/js/layout/base/content";
+import KTLayoutFooter from "_metronic/_assets/js/layout/base/footer";
+import KTLayoutSubheader from "_metronic/_assets/js/layout/base/subheader";
+import KTLayoutScrolltop from "_metronic/_assets/js/layout/extended/scrolltop";
+import KTLayoutStickyCard from "_metronic/_assets/js/layout/base/sticky-card";
+import KTLayoutStretchedCard from "_metronic/_assets/js/layout/base/stretched-card";
 import KTLayoutQuickPanel from "_metronic/_assets/js/layout/extended/quick-panel";
 
 export function LayoutInit() {
