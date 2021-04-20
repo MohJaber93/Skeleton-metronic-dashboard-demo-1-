@@ -9,7 +9,9 @@ export const ORDERS_STATUS = {
   underOrder: "قيد الطلب",
   rejectedOrders: "غير مقبول",
   deliveredOrders: "تم التسليم",
-  otherOrders: "أخرى"
+  otherOrders: "أخرى",
+  Receiving: "قيد الاستلام",
+  processing: "قيد التجهيز"
 };
 
 export const ORDERS_DELIVERY_METHOD = {

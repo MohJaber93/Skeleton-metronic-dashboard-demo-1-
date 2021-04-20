@@ -44,7 +44,7 @@ export const getOrders = async query => {
 
 export const updateOrderStatus = async payload => {
   try {
-    const response = await axios.post(
+    const response = await axios.put(
       `/orders/update-status/${payload.orderId}`,
       { status: payload.updatedValue },
       {
