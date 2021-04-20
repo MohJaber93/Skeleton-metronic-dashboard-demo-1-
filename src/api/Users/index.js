@@ -9,7 +9,6 @@ export const getUsers = async () => {
       }
     });
     let data = {};
-    console.log("test users data", response);
     switch (response.status) {
       case API_COMMON_STATUS.SUCCESS:
         data = {
@@ -48,9 +47,9 @@ export const addNewUser = async userData => {
     });
     let data = {};
     switch (response.status) {
-      case API_COMMON_STATUS.SUCCESS:
+      case API_COMMON_STATUS.RESOURCE_CREATED:
         data = {
-          responseStatus: API_COMMON_STATUS.SUCCESS,
+          responseStatus: API_COMMON_STATUS.RESOURCE_CREATED,
           ...response.data
         };
         break;
@@ -63,6 +62,12 @@ export const addNewUser = async userData => {
       case API_COMMON_STATUS.ERROR:
         data = {
           responseStatus: API_COMMON_STATUS.ERROR,
+          message: response.data.message
+        };
+        break;
+      case API_COMMON_STATUS.BAD_REQUEST:
+        data = {
+          responseStatus: API_COMMON_STATUS.BAD_REQUEST,
           message: response.data.message
         };
         break;
@@ -89,9 +94,9 @@ export const updateUserData = async payload => {
     );
     let data = {};
     switch (response.status) {
-      case API_COMMON_STATUS.SUCCESS:
+      case API_COMMON_STATUS.RESOURCE_CREATED:
         data = {
-          responseStatus: API_COMMON_STATUS.SUCCESS,
+          responseStatus: API_COMMON_STATUS.RESOURCE_CREATED,
           ...response.data
         };
         break;
