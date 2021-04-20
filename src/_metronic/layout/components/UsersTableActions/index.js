@@ -23,7 +23,6 @@ const UsersTableActions = ({ user, updateSnackbarState }) => {
   const blockUserHandler = () => {
     blockUser(userId)
       .then(response => {
-        console.log("test users data", response);
         if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
           setIsBlocked(response.isBlocked);
           updateSnackbarState({
