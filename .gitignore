@@ -15,7 +15,6 @@
 # assets
 /public/media
 /src/_metronic/_assets/js
-/src/_metronic/_assets/plugins
 /src/_metronic/_assets/sass
 
 
