@@ -3,13 +3,13 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/metronic/react/demo1"
+      "destination": ""
     }
   ],
   "rewrites": [
     {
-      "source": "/metronic/react/demo1/**",
-      "destination": "/metronic/react/demo1/index.html"
+      "source": "/**",
+      "destination": "/index.html"
     }
   ]
 }
