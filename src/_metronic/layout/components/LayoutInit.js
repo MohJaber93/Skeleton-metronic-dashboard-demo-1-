@@ -13,7 +13,7 @@ import KTLayoutSubheader from "../../_assets/js/layout/base/subheader";
 import KTLayoutScrolltop from "../../_assets/js/layout/extended/scrolltop";
 import KTLayoutStickyCard from "../../_assets/js/layout/base/sticky-card";
 import KTLayoutStretchedCard from "../../_assets/js/layout/base/stretched-card";
-import KTLayoutQuickPanel from "../../_assets/js/layout/extended/quick-panel";
+import KTLayoutQuickPanel from "_metronic/_assets/js/layout/extended/quick-panel";
 
 export function LayoutInit() {
   useLayoutEffect(() => {
