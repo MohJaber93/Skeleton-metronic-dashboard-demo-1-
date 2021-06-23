@@ -19,11 +19,11 @@ const TableToolbar = props => {
     >
       {numSelected > 0 ? (
         <Typography className={classes.title} color="inherit" variant="h6">
-          {numSelected} طلب محدد
+          {numSelected} {usersTable ? "مستخدم محدد" : "طلب محدد"}
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h5">
-          الطلبات
+          {usersTable ? "المستخدمين" : "الطلبات"}
         </Typography>
       )}
 
