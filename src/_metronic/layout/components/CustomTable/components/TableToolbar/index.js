@@ -1,15 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Toolbar, Typography, IconButton, Tooltip } from "@material-ui/core";
 import clsx from "clsx";
 import { useStyles } from "./style";
 import CountUpdater from "_metronic/layout/components/CountUpdater";
-import DeleteIcon from "@material-ui/icons/Delete";
 import UpdateIcon from "@material-ui/icons/Update";
+import NotificationModal from "_metronic/layout/components/NotificationModal";
 
 const TableToolbar = props => {
   const classes = useStyles();
-  const { numSelected, updateTableData, usersTable } = props;
+  const { selected, updateTableData, usersTable } = props;
+  const numSelected = selected.length;
 
   return (
     <Toolbar
@@ -27,13 +27,7 @@ const TableToolbar = props => {
         </Typography>
       )}
 
-      {/* {numSelected > 0 && (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      )} */}
+      {numSelected > 0 && <NotificationModal selectedUsersIds={selected} />}
       {usersTable && (
         <Tooltip title="تحديث بيانات المستخدمين">
           <IconButton color="primary" onClick={updateTableData}>
@@ -46,10 +40,6 @@ const TableToolbar = props => {
       )}
     </Toolbar>
   );
-};
-
-TableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired
 };
 
 export default TableToolbar;

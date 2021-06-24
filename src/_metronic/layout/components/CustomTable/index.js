@@ -193,7 +193,7 @@ export default function EnhancedTable({ data, updateTableData, usersTable }) {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableToolbar
-          numSelected={selected.length}
+          selected={selected}
           updateTableData={updateTableData}
           usersTable={usersTable}
         />
