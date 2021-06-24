@@ -137,7 +137,6 @@ export const blockUser = async userId => {
         }
       }
     );
-    console.log("test users data", response);
     let data = {};
     switch (response.status) {
       case API_COMMON_STATUS.SUCCESS:
