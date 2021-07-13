@@ -169,11 +169,13 @@ function Login(props) {
             type="submit"
             disabled={formik.isSubmitting}
             className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
+            style={{minWidth: '123px'}}
           >
-            <span>
-              <FormattedMessage id="AUTH.LOGIN.BUTTON" />
-            </span>
-            {loading && <span className="ml-3 spinner spinner-white"></span>}
+             {loading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> : 
+              <span className="ml-1">
+             <FormattedMessage id="AUTH.LOGIN.BUTTON" />
+             </span>
+             }
           </button>
         </div>
       </form>
